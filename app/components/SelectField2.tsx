@@ -50,7 +50,7 @@ export const SelectField2 = ({
           {isLoading ? (
             <ImSpinner2 className="animate-spin" />
           ) : (
-            <PiCaretDown className="text-lg mb-8 text-gray-400 dark:text-white/50" />
+            <PiCaretDown className="text-lg mb-4 text-gray-400 dark:text-white/50" />
           )}
         </div>
       </div>
