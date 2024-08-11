@@ -12,8 +12,8 @@ import { ToastContainer } from "react-toastify";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Zap by Paycrest",
-  description: "Crypto-to-fiat payments in a zap.",
+  title: "Lyt",
+  description: "lyt up Crypto-to-fiat payments .",
 };
 
 export default function RootLayout({

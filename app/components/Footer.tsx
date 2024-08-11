@@ -72,10 +72,10 @@ export const Footer = () => {
   const socials = resolvedTheme === "dark" ? socialsDark : socialsLight;
 
   return (
-    <footer className="mt-8 flex w-full items-center justify-between border-t border-dashed border-gray-200 pb-6 pt-4 dark:border-white/10">
+    <footer className="mt-8 flex w-full items-center justify-center border-t border-dashed border-gray-200 pb-6 pt-4 dark:border-white/10">
       <p className="text-xs font-medium">
         <span className="text-gray-500 dark:text-white/50">
-          &copy; 2024 Powered by
+          &copy; 2024 
         </span>{" "}
         <a
           href="https://paycrest.io"
@@ -83,14 +83,14 @@ export const Footer = () => {
           rel="noopener noreferrer"
           className="text-neutral-900 hover:underline dark:text-white/80"
         >
-          Paycrest
+          {/*paycrest X lyt */}
         </a>
       </p>
-      <div className="flex items-center justify-center gap-2">
+      {/*<div className="flex items-center justify-center gap-2">
         {socials.map((social, index) => (
           <SocialLink key={index} {...social} />
         ))}
-      </div>
+      </div>*/}
     </footer>
   );
 };

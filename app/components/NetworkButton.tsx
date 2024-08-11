@@ -13,11 +13,11 @@ export const NetworkButton = ({
   <button
     type="button"
     disabled={disabled}
-    className={`relative flex items-center justify-center gap-2 rounded-full px-3 py-2.5 ${selectedNetwork === network ? "border border-blue-500" : "border border-gray-300 dark:border-white/20"} disabled:cursor-not-allowed disabled:opacity-70`}
+    className={`relative flex items-center justify-center gap-2 rounded-full px-3 py-2.5 ${selectedNetwork === network ? "border border-[#CF9FFF]" : "border border-gray-300 dark:border-white/20"} disabled:cursor-not-allowed disabled:opacity-70`}
     onClick={() => handleNetworkChange(network)}
   >
     <Image src={logo} width={0} height={0} alt={alt} className="h-auto w-4" />
-    <p>
+    <p className="text-[#CF9FFF]">
       {
         {
           base: "Base",
@@ -28,7 +28,7 @@ export const NetworkButton = ({
     </p>
 
     <FaCircleCheck
-      className={`absolute -right-1 top-0 rounded-full border border-white bg-white text-blue-500 transition-opacity dark:border-neutral-900 dark:bg-neutral-900 ${
+      className={`absolute -right-1 top-0 rounded-full border border-[#CF9FFF] bg-white text-[#CF9FFF] transition-opacity dark:border-[#CF9FFF] dark:bg-neutral-900 ${
         selectedNetwork === network ? "opacity-100" : "opacity-0"
       }`}
     />

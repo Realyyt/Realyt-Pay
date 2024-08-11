@@ -6,6 +6,7 @@ import { FaRegHourglass } from "react-icons/fa6";
 import { useSmartAccount } from "@biconomy/use-aa";
 import { AnimatePresence, motion } from "framer-motion";
 import { PiCaretDown, PiCheckCircle } from "react-icons/pi";
+import {useState} from "react"
 
 import {
   AnimatedComponent,
@@ -13,6 +14,7 @@ import {
   InputError,
   NetworkButton,
   SelectField,
+  SelectField2,
   TabButton,
   Tooltip,
   fadeInOut,
@@ -27,8 +29,8 @@ import { HiOutlineInformationCircle } from "react-icons/hi";
 
 const currencies = [
   { value: "NGN", label: "Nigerian Naira (NGN)" },
-  { value: "KES", label: "Kenyan Shilling (KES)", disabled: true },
-  { value: "GHS", label: "Ghanaian Cedi (GHS)", disabled: true },
+  //{ value: "KES", label: "Kenyan Shilling (KES)", disabled: true },
+  //{ value: "GHS", label: "Ghanaian Cedi (GHS)", disabled: true },
 ];
 
 /**
@@ -45,6 +47,7 @@ export const TransactionForm = ({
   onSubmit,
   stateProps,
 }: TransactionFormProps) => {
+  const [nairaAmount, setNairaAmount] = useState("");
   // Destructure stateProps
   const {
     tokenBalance,
@@ -94,16 +97,16 @@ export const TransactionForm = ({
   const renderedInfo = [rateInfo, feeInfo];
 
   // Array of available networks
-  const networks = ["base", "arbitrum", "polygon"];
+  const networks = ["base", ];
 
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="grid gap-6 py-10 text-sm text-neutral-900 transition-all dark:text-white"
+      className="grid gap-6 py-10 text-sm text-neutral-900 transition-all dark:text-[#CF9FFF]"
       noValidate
     >
       {/* Networks */}
-      <div className="flex items-center justify-between gap-3 font-medium">
+      <div className="flex items-center justify-center gap-3 font-medium">
         <input type="hidden" {...register("network")} value={selectedNetwork} />
 
         {/* Render network buttons */}
@@ -119,7 +122,7 @@ export const TransactionForm = ({
           />
         ))}
 
-        {/* Other network buttons */}
+        {/* 
         <Tooltip message="Other networks (coming soon)">
           <button
             type="button"
@@ -128,14 +131,14 @@ export const TransactionForm = ({
           >
             <PiCaretDown className="text-lg text-gray-400 dark:text-white/50" />
           </button>
-        </Tooltip>
+        </Tooltip> */}
       </div>
 
-      <div className="grid gap-4 rounded-3xl border border-gray-200 p-4 transition-all dark:border-white/10">
-        <div className="flex items-start gap-4">
+      <div className="grid gap-4 rounded-3xl border border-[#CF9FFF] p-4 transition-all dark:border-white/10">
+        <div className="grid gap-4 md:grid-cols-2">
           {/* Token */}
           <div className="grid flex-1 gap-2">
-            <SelectField
+            <SelectField2
               id="token"
               label="Token"
               options={
@@ -161,49 +164,89 @@ export const TransactionForm = ({
           </div>
 
           {/* Amount */}
-          <div className="grid flex-1 gap-2">
+          <div className="grid gap-4">
             <label htmlFor="amount" className="font-medium">
               Amount <span className="text-rose-500">*</span>
             </label>
-            <div className="relative">
-              <input
-                id="amount"
-                type="number"
-                step="0.01"
-                {...register("amount", {
-                  required: { value: true, message: "Amount is required" },
-                  disabled: !account.isConnected || token === "",
-                  min: {
-                    value: 0.01,
-                    message: `Minimum amount is 0.01 ${token}`,
-                  },
-                  max: {
-                    value: 500,
-                    message: `Max. amount is 500 ${token}`,
-                  },
-                  pattern: {
-                    value: /^\d+(\.\d{1,2})?$/,
-                    message: "Invalid amount",
-                  },
-                })}
-                className={`${inputClasses} pl-4 pr-14`}
-                placeholder="0.00"
-                title={
-                  token === ""
-                    ? "Select token to enable amount field"
-                    : !account.isConnected
-                      ? "Connect wallet to enable amount field"
-                      : "Enter amount to send"
-                }
-              />
-              <div className="absolute inset-y-0 right-0 flex items-center pr-4">
-                {watch("token")}
+            <div className="grid gap-2">
+              {/* USD (DAI) Amount */}
+              <div className="relative">
+                <input
+                  id="amount"
+                  type="number"
+                  step="0.01"
+                  {...register("amount", {
+                    required: { value: true, message: "Amount is required" },
+                    disabled: !account.isConnected || token === "",
+                    min: {
+                      value: 0.01,
+                      message: `Minimum amount is 0.01 ${token}`,
+                    },
+                    max: {
+                      value: 500,
+                      message: `Max. amount is 500 ${token}`,
+                    },
+                    pattern: {
+                      value: /^\d+(\.\d{1,2})?$/,
+                      message: "Invalid amount",
+                    },
+                    onChange: (e) => {
+                      const usdValue = parseFloat(e.target.value);
+                      setNairaAmount((usdValue * rate).toFixed(2));
+                    },
+                  })}
+                  className={`${inputClasses} h-[42px] w-full pl-4 pr-14`}
+                  placeholder="0.00"
+                  title={
+                    token === ""
+                      ? "Select token to enable amount field"
+                      : !account.isConnected
+                        ? "Connect wallet to enable amount field"
+                        : "Enter amount to send in USD"
+                  }
+                />
+                <div className="absolute inset-y-0 right-0 flex items-center pr-4">
+                  {watch("token")}
+                </div>
+              </div>
+
+              {/* Naira Amount (helper input) */}
+              <div className="relative">
+                <input
+                  id="nairaAmount"
+                  type="number"
+                  step="0.01"
+                  value={nairaAmount}
+                  className={`${inputClasses} pl-4 pr-14`}
+                  placeholder="0.00"
+                  title="Enter amount in Naira"
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                    const nairaValue = parseFloat(e.target.value);
+                    setNairaAmount(nairaValue.toString());
+                    const usdValue = (nairaValue / rate).toFixed(2);
+                    // Manually update the 'amount' input
+                    const amountInput = document.getElementById(
+                      "amount",
+                    ) as HTMLInputElement | null;
+                    if (amountInput) {
+                      amountInput.value = usdValue;
+                      // Trigger the onChange event for the amount input
+                      const event = new Event("input", { bubbles: true });
+                      amountInput.dispatchEvent(event);
+                    }
+                    formMethods.setValue("amount", usdValue, {
+                      shouldValidate: true,
+                    });
+                  }}
+                />
+                <div className="absolute inset-y-0 right-0 flex items-center pr-4">
+                  ₦
+                </div>
               </div>
             </div>
             {errors.amount && <InputError message={errors.amount.message} />}
           </div>
         </div>
-
         {/* Wallet and Smart Wallet Balance */}
         <AnimatePresence mode="wait">
           {account.status === "connected" && token !== "" && (
@@ -269,19 +312,19 @@ export const TransactionForm = ({
           </Tooltip>
         </div>
 
-        <div className="grid gap-4 rounded-3xl border border-gray-200 p-4 transition-all dark:border-white/10">
+        <div className="grid gap-4 rounded-3xl border border-[#CF9FFF] p-4 transition-all dark:border-white/10">
           {/* Tabs */}
-          <div className="flex items-center gap-2 rounded-full bg-gray-50 p-1 font-medium dark:bg-white/5">
+          <div className="flex items-center gap-2 rounded-full bg-[#CF9FFF] p-1 font-medium dark:bg-[#CF9FFF]">
             <TabButton
               tab="bank-transfer"
               selectedTab={selectedTab}
               handleTabChange={handleTabChange}
             />
-            <TabButton
+            {/*<TabButton
               tab="mobile-money"
               selectedTab={selectedTab}
               handleTabChange={handleTabChange}
-            />
+            />*/}
           </div>
 
           {/* Bank Transfer Tab Contents */}
@@ -418,7 +461,7 @@ export const TransactionForm = ({
             </motion.div>
           )}
 
-          {/* Mobile Money Tab Contents */}
+          {/*  
           {selectedTab === "mobile-money" && (
             <motion.div
               key="mobile-money"
@@ -429,7 +472,7 @@ export const TransactionForm = ({
               <FaRegHourglass className="text-yellow-700 dark:text-yellow-400" />
               <p className="text-gray-500">Coming soon</p>
             </motion.div>
-          )}
+          )}*/}
         </div>
       </div>
       {/* Submit button */}

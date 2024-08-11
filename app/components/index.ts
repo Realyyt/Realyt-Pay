@@ -27,4 +27,6 @@ export { FundWalletModal } from "./FundWalletModal";
 export { InputError } from "./InputError";
 export { SelectField } from "./SelectField";
 
+export { SelectField2 } from "./SelectField2";
+
 export { inputClasses, primaryBtnClasses, secondaryBtnClasses } from "./Styles";

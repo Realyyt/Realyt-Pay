@@ -46,15 +46,11 @@ export const Disclaimer = () => {
               Disclaimer Notice
             </h2>
             <p className="text-sm leading-normal text-neutral-900 dark:text-white/80">
-              This application is for demo use only. Any transactions conducted
-              within this app are for illustrative purposes.
+             Do not use this app for illegal purposes!!
             </p>
-            <p className="text-sm leading-normal text-neutral-900 dark:text-white/80">
-              Therefore: <br />
-              While the app records real transactions, please exercise caution and
-              do not use this app as is in a production environment.
-              Use at your own risk. The developers are not responsible for any issues
-              or damages that may arise from the use of this app.
+            <p className="text-sm leading-normal text-neutral-400 dark:text-white/30">
+               <br />You are soley responsible for any issues
+              or damages you cause .
             </p>
 
             <div className="flex items-center justify-between">
