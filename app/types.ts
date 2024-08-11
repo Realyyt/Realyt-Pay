@@ -3,6 +3,7 @@ import {
   FieldErrors,
   UseFormRegister,
   UseFormHandleSubmit,
+  UseFormSetValue,
 } from "react-hook-form";
 
 export type InstitutionProps = {
@@ -25,6 +26,7 @@ export type FormData = {
 export type FormMethods = {
   handleSubmit: UseFormHandleSubmit<FormData, undefined>;
   register: UseFormRegister<FormData>;
+  setValue: UseFormSetValue<FormData>;
   watch: (name: string) => string | number | undefined;
   formState: {
     errors: FieldErrors<FormData>;

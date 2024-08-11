@@ -66,6 +66,7 @@ export const TransactionForm = ({
 
   // Destructure formMethods from react-hook-form
   const {
+    setValue,
     handleSubmit,
     register,
     watch,
@@ -192,7 +193,11 @@ export const TransactionForm = ({
                     },
                     onChange: (e) => {
                       const usdValue = parseFloat(e.target.value);
-                      setNairaAmount((usdValue * rate).toFixed(2));
+                      if (!isNaN(usdValue)) {
+                        setNairaAmount((usdValue * rate).toFixed(2));
+                      } else {
+                        setNairaAmount("");
+                      }
                     },
                   })}
                   className={`${inputClasses} h-[42px] w-full pl-4 pr-14`}
@@ -222,21 +227,17 @@ export const TransactionForm = ({
                   title="Enter amount in Naira"
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                     const nairaValue = parseFloat(e.target.value);
-                    setNairaAmount(nairaValue.toString());
-                    const usdValue = (nairaValue / rate).toFixed(2);
-                    // Manually update the 'amount' input
-                    const amountInput = document.getElementById(
-                      "amount",
-                    ) as HTMLInputElement | null;
-                    if (amountInput) {
-                      amountInput.value = usdValue;
-                      // Trigger the onChange event for the amount input
-                      const event = new Event("input", { bubbles: true });
-                      amountInput.dispatchEvent(event);
+                    if (!isNaN(nairaValue)) {
+                      setNairaAmount(nairaValue.toFixed(2));
+                      const usdValue = (nairaValue / rate).toFixed(2);
+                      // Update the 'amount' input and form value
+                      setValue("amount", parseFloat(usdValue), {
+                        shouldValidate: true,
+                      });
+                    } else {
+                      setNairaAmount("");
+                      setValue("amount", "", { shouldValidate: true });
                     }
-                    formMethods.setValue("amount", usdValue, {
-                      shouldValidate: true,
-                    });
                   }}
                 />
                 <div className="absolute inset-y-0 right-0 flex items-center pr-4">

@@ -20,7 +20,7 @@ export const SelectField = ({
       <label htmlFor={id} className="font-medium">
         {label} <span className="text-rose-500">*</span>
       </label>
-      <div className="relative">
+      <div className="relative text-[#CF9FFF]">
         <select
           {...register(id as keyof FormData, validation)}
           id={id}
@@ -40,17 +40,17 @@ export const SelectField = ({
               key={option.value}
               value={option.value}
               disabled={option.disabled}
-              className="disabled:cursor-not-allowed disabled:opacity-50"
+              className="text-[#CF9FFF] disabled:cursor-not-allowed disabled:opacity-50"
             >
               {option.label}
             </option>
           ))}
         </select>
-        <div className="pointer-events-none absolute inset-y-0 right-2 flex items-center text-lg text-neutral-900 dark:text-white/80">
+        <div className="pointer-events-none absolute inset-y-0 right-2 flex items-center text-lg text-[#CF9FFF] dark:text-[#CF9FFF]">
           {isLoading ? (
             <ImSpinner2 className="animate-spin" />
           ) : (
-            <PiCaretDown className="text-lg  text-gray-400 dark:text-white/50" />
+            <PiCaretDown className="text-lg text-gray-400 dark:text-white/50" />
           )}
         </div>
       </div>
