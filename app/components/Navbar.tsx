@@ -30,8 +30,8 @@ export const Navbar = () => {
               className="h-auto w-12"
               src={
                 mounted && resolvedTheme === "dark"
-                  ? "/zap-logo-dark-theme.svg"
-                  : "/zap-logo-light-theme.svg"
+                  ? "/lytsvg.svg"
+                  : "/lytsvg.svg"
               }
               alt=""
               width={0}

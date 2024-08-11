@@ -6,7 +6,7 @@ import { FaRegHourglass } from "react-icons/fa6";
 import { useSmartAccount } from "@biconomy/use-aa";
 import { AnimatePresence, motion } from "framer-motion";
 import { PiCaretDown, PiCheckCircle } from "react-icons/pi";
-import {useState} from "react"
+import {useState,useCallback} from "react";
 
 import {
   AnimatedComponent,
@@ -48,6 +48,8 @@ export const TransactionForm = ({
   stateProps,
 }: TransactionFormProps) => {
   const [nairaAmount, setNairaAmount] = useState("");
+
+
   // Destructure stateProps
   const {
     tokenBalance,
@@ -193,10 +195,13 @@ export const TransactionForm = ({
                     },
                     onChange: (e) => {
                       const usdValue = parseFloat(e.target.value);
-                      if (!isNaN(usdValue)) {
-                        setNairaAmount((usdValue * rate).toFixed(2));
+                      if (!isNaN(usdValue) && rate > 0) {
+                        const calculatedNaira = (usdValue * rate).toFixed(2);
+                        setNairaAmount(calculatedNaira);
+                        setValue("amount", usdValue, { shouldValidate: true });
                       } else {
                         setNairaAmount("");
+                        setValue("amount", 0, { shouldValidate: true });
                       }
                     },
                   })}
@@ -227,17 +232,13 @@ export const TransactionForm = ({
                   title="Enter amount in Naira"
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                     const nairaValue = parseFloat(e.target.value);
-                    if (!isNaN(nairaValue)) {
+                    if (!isNaN(nairaValue) && rate > 0) {
+                      const calculatedUsd = (nairaValue / rate).toFixed(2);
                       setNairaAmount(nairaValue.toFixed(2));
-                      const usdValue = (nairaValue / rate).toFixed(2);
-                      // Update the 'amount' input and form value
-                      setValue("amount", parseFloat(usdValue), {
-                        shouldValidate: true,
-                      });
+                      setValue("amount", parseFloat(calculatedUsd), { shouldValidate: true });
                     } else {
                       setNairaAmount("");
-                      // Pass null or 0 instead of an empty string
-                      setValue("amount",0, { shouldValidate: true });
+                      setValue("amount", 0, { shouldValidate: true });
                     }
                   }}
                 />
