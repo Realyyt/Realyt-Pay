@@ -236,7 +236,8 @@ export const TransactionForm = ({
                       });
                     } else {
                       setNairaAmount("");
-                      setValue("amount", "", { shouldValidate: true });
+                      // Pass null or 0 instead of an empty string
+                      setValue("amount",0, { shouldValidate: true });
                     }
                   }}
                 />
