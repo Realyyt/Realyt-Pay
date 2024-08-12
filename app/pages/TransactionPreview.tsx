@@ -470,7 +470,7 @@ export const TransactionPreview = ({
   }, [errorCount, errorMessage]);
 
   return (
-    <div className="grid gap-6 py-10 text-sm">
+    <div className="grid gap-6 py-10 text-sm text-[#CF9FFF]">
       <div className="grid gap-4">
         <h2 className="text-xl font-medium text-neutral-900 dark:text-white/80">
           Review transaction
@@ -518,14 +518,14 @@ export const TransactionPreview = ({
       <hr className="w-full border-dashed border-gray-200 dark:border-white/10" />
 
       {/* Confirm and Approve */}
-      {(gatewayAllowance < amount && smartTokenBalance < amount) && (
+      {gatewayAllowance < amount && smartTokenBalance < amount && (
         <p className="text-gray-500 dark:text-white/50">
           To confirm order, you&apos;ll be required to approve these two
           permissions from your wallet
         </p>
       )}
 
-      {(gatewayAllowance < amount && smartTokenBalance < amount) && (
+      {gatewayAllowance < amount && smartTokenBalance < amount && (
         <div className="flex items-center justify-between text-gray-500 dark:text-white/50">
           <p>
             {/* replace 1 with 2 when the approve state is set to complete */}
