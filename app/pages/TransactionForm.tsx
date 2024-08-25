@@ -228,7 +228,7 @@ export const TransactionForm = ({
                     },
                     max: {
                       value: 500,
-                      message: `Max. amount is 500 ${token}`,
+                      message: `Max amount is 500 ${token}`,
                     },
                     pattern: {
                       value: /^\d+(\.\d{1,2})?$/,
@@ -248,7 +248,7 @@ export const TransactionForm = ({
                   }
                 />
                 <div className="absolute inset-y-0 right-0 flex items-center pr-4">
-                  {watch("token")}
+                {watch("token") ? watch("token") : "USD"}
                 </div>
               </div>
 
