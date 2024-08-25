@@ -6,7 +6,7 @@ import { FaRegHourglass } from "react-icons/fa6";
 import { useSmartAccount } from "@biconomy/use-aa";
 import { AnimatePresence, motion } from "framer-motion";
 import { PiCaretDown, PiCheckCircle } from "react-icons/pi";
-import {useState,useCallback} from "react";
+import { useState, useCallback, useEffect } from "react";
 
 import {
   AnimatedComponent,
@@ -48,6 +48,7 @@ export const TransactionForm = ({
   stateProps,
 }: TransactionFormProps) => {
   const [nairaAmount, setNairaAmount] = useState("");
+  const [localNairaAmount, setLocalNairaAmount] = useState("");
 
 
   // Destructure stateProps
@@ -101,6 +102,46 @@ export const TransactionForm = ({
 
   // Array of available networks
   const networks = ["base", ];
+  
+  const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    const numericValue = parseFloat(value);
+    setValue("amount", numericValue, { shouldValidate: true });
+    if (!isNaN(numericValue) && rate) {
+      const calculatedNaira = (numericValue * rate).toFixed(2);
+      setNairaAmount(calculatedNaira);
+      setLocalNairaAmount(calculatedNaira);
+    } else {
+      setNairaAmount("");
+      setLocalNairaAmount("");
+    }
+  };
+
+  const handleNairaChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setLocalNairaAmount(value);
+    if (value && rate) {
+      const calculatedUsd = parseFloat((parseFloat(value) / rate).toFixed(2));
+      setValue("amount", calculatedUsd, { shouldValidate: true });
+    } else {
+      setValue("amount", 0, { shouldValidate: true });
+    }
+  };
+
+  useEffect(() => {
+    if (amount && rate) {
+      const calculatedNaira = (parseFloat(amount.toString()) * rate).toFixed(2);
+      setNairaAmount(calculatedNaira);
+      setLocalNairaAmount(calculatedNaira);
+    }
+  }, [amount, rate]);
+
+  useEffect(() => {
+    if (localNairaAmount && rate) {
+      const calculatedUsd = parseFloat((parseFloat(localNairaAmount) / rate).toFixed(2));
+      setValue("amount", calculatedUsd, { shouldValidate: true });
+    }
+  }, [localNairaAmount, rate, setValue]);
 
   return (
     <form
@@ -193,18 +234,9 @@ export const TransactionForm = ({
                       value: /^\d+(\.\d{1,2})?$/,
                       message: "Invalid amount",
                     },
-                    onChange: (e) => {
-                      const usdValue = parseFloat(e.target.value);
-                      if (!isNaN(usdValue) && rate > 0) {
-                        const calculatedNaira = (usdValue * rate).toFixed(2);
-                        setNairaAmount(calculatedNaira);
-                        setValue("amount", usdValue, { shouldValidate: true });
-                      } else {
-                        setNairaAmount("");
-                        setValue("amount", 0, { shouldValidate: true });
-                      }
-                    },
+                    
                   })}
+                  onChange={handleAmountChange}
                   className={`${inputClasses} h-[42px] w-full pl-4 pr-14`}
                   placeholder="0.00"
                   title={
@@ -226,21 +258,18 @@ export const TransactionForm = ({
                   id="nairaAmount"
                   type="number"
                   step="0.01"
-                  value={nairaAmount}
                   className={`${inputClasses} pl-4 pr-14`}
                   placeholder="0.00"
-                  title="Enter amount in Naira"
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                    const nairaValue = parseFloat(e.target.value);
-                    if (!isNaN(nairaValue) && rate > 0) {
-                      const calculatedUsd = (nairaValue / rate).toFixed(2);
-                      setNairaAmount(nairaValue.toFixed(2));
-                      setValue("amount", parseFloat(calculatedUsd), { shouldValidate: true });
-                    } else {
-                      setNairaAmount("");
-                      setValue("amount", 0, { shouldValidate: true });
-                    }
-                  }}
+                  title={
+                    token === ""
+                      ? "Select token to enable amount field"
+                      : !account.isConnected
+                        ? "Connect wallet to enable amount field"
+                        : "Enter amount in Naira"
+                  }
+                  value={localNairaAmount}
+                  onChange={handleNairaChange}
+                  disabled={!account.isConnected || token === ""}
                 />
                 <div className="absolute inset-y-0 right-0 flex items-center pr-4">
                   ₦
