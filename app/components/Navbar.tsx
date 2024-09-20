@@ -25,18 +25,18 @@ export const Navbar = () => {
         <div className="flex lg:flex-1">
           <Link href="/" className="-m-1.5 p-1.5">
             <span className="sr-only">lyt</span>
-            <svg className="floating-logo logo1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180.58 65.54">
+            <svg className="floating-logo logo1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180.58 65.54" width="90" height="32.77">
               <defs>
-              <style>
-                {`
-                  .cls-1 { fill: #1973f7; }
-                  .cls-2 { fill: #1973f7; }
-                  .cls-3 { fill: #cf9fff; }
-                  .cls-4 { fill: none; }
-                  .cls-5 { fill: #aa6fef; }
-                  .cls-6 { fill: #1c5af4; }
-                `}
-              </style>
+                <style>
+                  {`
+                    .cls-1 { fill: #1973f7; }
+                    .cls-2 { fill: #1973f7; }
+                    .cls-3 { fill: #cf9fff; }
+                    .cls-4 { fill: none; }
+                    .cls-5 { fill: #aa6fef; }
+                    .cls-6 { fill: #1c5af4; }
+                  `}
+                </style>
               </defs>
               <g id="Layer_2" data-name="Layer 2">
                 <g id="Layer_1-2" data-name="Layer 1">
