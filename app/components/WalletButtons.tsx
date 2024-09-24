@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useState, useEffect } from "react";
 import { useAccount, useConnect } from "wagmi";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 
@@ -19,8 +19,18 @@ export const WalletButtons = () => {
   }, [connectors, connect]);
 
   const toggleDropdown = () => {
-    setDropdownOpen(!dropdownOpen);
+    setDropdownOpen((prev) => !prev);
   };
+
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    if (dropdownOpen) {
+      timer = setTimeout(() => {
+        setDropdownOpen(false);
+      }, 2000);
+    }
+    return () => clearTimeout(timer);
+  }, [dropdownOpen]);
 
   return (
     <>
@@ -38,7 +48,10 @@ export const WalletButtons = () => {
               <ConnectButton.Custom>
                 {({ openConnectModal }) => (
                   <button
-                    onClick={openConnectModal}
+                    onClick={() => {
+                      openConnectModal();
+                      setDropdownOpen(false);
+                    }}
                     type="button"
                     className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                     role="menuitem"
@@ -48,7 +61,10 @@ export const WalletButtons = () => {
                 )}
               </ConnectButton.Custom>
               <button
-                onClick={createWallet}
+                onClick={() => {
+                  createWallet();
+                  setDropdownOpen(false);
+                }}
                 type="button"
                 className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 role="menuitem"
