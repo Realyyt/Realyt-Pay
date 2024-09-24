@@ -18,6 +18,7 @@ import {
   Preloader,
   TransactionForm,
   TransactionPreview,
+  UniswapModal,
 } from "./components";
 import { erc20Abi } from "./api/abi";
 import TransactionStatus from "./pages/TransactionStatus";
@@ -47,6 +48,7 @@ export default function Home() {
   const [isFetchingInstitutions, setIsFetchingInstitutions] = useState(false);
   const [isFetchingRate, setIsFetchingRate] = useState(false);
   const [isFetchingRecipientName, setIsFetchingRecipientName] = useState(false);
+  const [isUniswapModalOpen, setIsUniswapModalOpen] = useState(false);
 
   const [rate, setRate] = useState<number>(0);
   const [recipientName, setRecipientName] = useState<string>("");
@@ -301,7 +303,7 @@ export default function Home() {
                 <TransactionForm
                   onSubmit={(data: FormData) => setFormValues(data)}
                   formMethods={formMethods}
-                  stateProps={stateProps}
+                  stateProps={stateProps}// Ensure this is set correctly
                 />
               </AnimatedPage>
             ) : (
@@ -317,6 +319,12 @@ export default function Home() {
           </>
         )}
       </AnimatePresence>
+
+      {/* Uniswap Modal */}
+      <UniswapModal
+        isOpen={isUniswapModalOpen}
+        onClose={() => setIsUniswapModalOpen(false)}
+      />
     </>
   );
 }

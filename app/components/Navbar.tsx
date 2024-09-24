@@ -6,11 +6,14 @@ import { useEffect, useState } from "react";
 
 import { ThemeSwitch } from "./ThemeSwitch";
 import { WalletButtons } from "./WalletButtons";
+import UniswapButton from "./UniswapButton";
+import UniswapModal from "./UniswapModal";
 
 export const Navbar = () => {
   const account = useAccount();
   const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const [isUniswapModalOpen, setIsUniswapModalOpen] = useState(false); // State for Uniswap modal
 
   useEffect(() => setMounted(true), []);
 
@@ -58,11 +61,16 @@ export const Navbar = () => {
 
         <div className="flex flex-1 items-center justify-end gap-3 text-sm">
           <WalletButtons />
+          <UniswapButton onClick={() => setIsUniswapModalOpen(true)} /> {/* Add the Uniswap button here */}
           <div className={`${account.isConnected ? "" : "hidden lg:block"}`}>
             <ThemeSwitch />
           </div>
         </div>
       </nav>
+      <UniswapModal
+        isOpen={isUniswapModalOpen}
+        onClose={() => setIsUniswapModalOpen(false)}
+      />
     </header>
   );
 };

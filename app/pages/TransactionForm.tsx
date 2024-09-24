@@ -17,6 +17,7 @@ import {
   SelectField2,
   TabButton,
   Tooltip,
+  UniswapModal, // Import UniswapModal
   fadeInOut,
   inputClasses,
   primaryBtnClasses,
@@ -49,7 +50,7 @@ export const TransactionForm = ({
 }: TransactionFormProps) => {
   const [nairaAmount, setNairaAmount] = useState("");
   const [localNairaAmount, setLocalNairaAmount] = useState("");
-
+  const [isUniswapModalOpen, setIsUniswapModalOpen] = useState(false); // State for Uniswap modal
 
   // Destructure stateProps
   const {
@@ -292,6 +293,13 @@ export const TransactionForm = ({
                     Smart Wallet
                   </p>
                   <FundWalletModal address={smartAccountAddress} />
+                  <button
+                    type="button"
+                    className="ml-2 rounded-full border border-gray-300 p-2.5 dark:border-white/20"
+                    onClick={() => setIsUniswapModalOpen(true)}
+                  >
+                    Exchange
+                  </button>
                 </div>
                 <div className="flex items-center gap-1">
                   {token && (
@@ -517,6 +525,7 @@ export const TransactionForm = ({
       >
         {account.isConnected ? "Review Info" : "Connect wallet to continue"}
       </button>
+
       {/* Rate and fee */}
       <AnimatePresence>
         {rate > 0 && Number(amount) > 0 && account.isConnected && (
@@ -547,6 +556,12 @@ export const TransactionForm = ({
           </AnimatedComponent>
         )}
       </AnimatePresence>
+
+      {/* Uniswap Modal */}
+      <UniswapModal
+        isOpen={isUniswapModalOpen}
+        onClose={() => setIsUniswapModalOpen(false)}
+      />
     </form>
   );
 };

@@ -19,6 +19,7 @@ export {
 export { Tooltip } from "./Tooltip";
 export { TransactionForm } from "../pages/TransactionForm";
 export { TransactionPreview } from "../pages/TransactionPreview";
+export { default as UniswapModal } from "./UniswapModal";
 
 export { TabButton } from "./TabButton";
 export { NetworkButton } from "./NetworkButton";
@@ -30,3 +31,5 @@ export { SelectField } from "./SelectField";
 export { SelectField2 } from "./SelectField2";
 
 export { inputClasses, primaryBtnClasses, secondaryBtnClasses } from "./Styles";
+
+// ... other exports
