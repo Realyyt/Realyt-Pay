@@ -41,7 +41,7 @@ const UniswapModal: React.FC<UniswapModalProps> = ({ isOpen, onClose }) => {
                 <div className="sm:flex sm:items-start">
                   <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                     <Dialog.Title as="h3" className="text-lg leading-6 font-medium text-gray-900">
-                      Uniswap Modal
+                      Lytswap
                     </Dialog.Title>
                     <div className="mt-2">
                       <iframe
@@ -61,15 +61,6 @@ const UniswapModal: React.FC<UniswapModalProps> = ({ isOpen, onClose }) => {
                   onClick={onClose}
                 >
                   Close
-                </button>
-                <button
-                  type="button"
-                  className="absolute top-0 right-0 mt-4 mr-4"
-                  onClick={onClose}
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
-                  </svg>
                 </button>
               </div>
             </div>
