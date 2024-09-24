@@ -28,7 +28,7 @@ export const Navbar = () => {
         <div className="flex lg:flex-1">
           <Link href="/" className="-m-1.5 p-1.5">
             <span className="sr-only">lyt</span>
-            <svg className="floating-logo logo1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180.58 65.54" width="90" height="32.77">
+            <svg className="floating-logo logo1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180.58 65.54" width="45" height="16.385">
               <defs>
                 <style>
                   {`
@@ -59,7 +59,7 @@ export const Navbar = () => {
           </Link>
         </div>
 
-        <div className="flex flex-1 items-center justify-end gap-3 text-sm">
+        <div className="flex flex-1 items-center justify-end gap-3 text-sm pl-4">
           <WalletButtons />
           <UniswapButton onClick={() => setIsUniswapModalOpen(true)} /> {/* Add the Uniswap button here */}
           <div className={`${account.isConnected ? "" : "hidden lg:block"}`}>
