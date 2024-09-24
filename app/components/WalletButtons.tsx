@@ -41,7 +41,7 @@ export const WalletButtons = () => {
                     <button
                       onClick={openConnectModal}
                       type="button"
-                      className="relative flex items-center justify-center gap-2 rounded-full px-3 py-2.5 transition-colors duration-300 ease-in-out bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white"
+                      className="relative flex items-center justify-center gap-2 rounded-full px-2 py-1.5 text-sm transition-colors duration-300 ease-in-out bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white w-full sm:w-auto"
                     >
                       Connect Wallet
                     </button>
@@ -53,7 +53,7 @@ export const WalletButtons = () => {
                     <button
                       onClick={openChainModal}
                       type="button"
-                      className="relative flex items-center justify-center gap-2 rounded-full px-3 py-2.5 transition-colors duration-300 ease-in-out bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white"
+                      className="relative flex items-center justify-center gap-2 rounded-full px-3 py-2.5 transition-colors duration-300 ease-in-out bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white w-full sm:w-auto"
                     >
                       Wrong network
                     </button>
@@ -64,7 +64,7 @@ export const WalletButtons = () => {
                   <button
                     onClick={openAccountModal}
                     type="button"
-                    className="relative flex items-center justify-center gap-2 rounded-full px-3 py-2.5 transition-colors duration-300 ease-in-out bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white"
+                    className="relative flex items-center justify-center gap-2 rounded-full px-3 py-2.5 transition-colors duration-300 ease-in-out bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white w-full sm:w-auto"
                   >
                     {account.displayName}
                   </button>
@@ -78,7 +78,7 @@ export const WalletButtons = () => {
       {!account.isConnected && (
         <button
           type="button"
-          className="relative flex items-center justify-center gap-2 rounded-full px-3 py-2.5 border border-gray-300 text-gray-700 hover:bg-gray-100 dark:border-white/20 dark:text-white dark:hover:bg-neutral-800"
+          className="relative flex items-center justify-center gap-2 rounded-full px-2 py-1.5 text-sm border border-gray-300 text-gray-700 hover:bg-gray-100 dark:border-white/20 dark:text-white dark:hover:bg-neutral-800 w-full sm:w-auto"
           onClick={createWallet}
         >
           Create Wallet
