@@ -4,10 +4,7 @@ import { useAccount } from "wagmi";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 
-import { ThemeSwitch } from "./ThemeSwitch";
 import { WalletButtons } from "./WalletButtons";
-import UniswapButton from "./UniswapButton";
-import UniswapModal from "./UniswapModal";
 
 export const Navbar = () => {
   const account = useAccount();
@@ -62,6 +59,7 @@ export const Navbar = () => {
         <div className="flex flex-1 items-center justify-end gap-3 text-sm pl-4">
           <WalletButtons />
         </div>
+      </nav>
     </header>
   );
 };
