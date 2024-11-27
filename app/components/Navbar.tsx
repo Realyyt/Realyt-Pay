@@ -61,16 +61,7 @@ export const Navbar = () => {
 
         <div className="flex flex-1 items-center justify-end gap-3 text-sm pl-4">
           <WalletButtons />
-          <UniswapButton onClick={() => setIsUniswapModalOpen(true)} /> {/* Add the Uniswap button here */}
-          <div className={`${account.isConnected ? "" : "hidden lg:block"}`}>
-            <ThemeSwitch />
-          </div>
         </div>
-      </nav>
-      <UniswapModal
-        isOpen={isUniswapModalOpen}
-        onClose={() => setIsUniswapModalOpen(false)}
-      />
     </header>
   );
 };
